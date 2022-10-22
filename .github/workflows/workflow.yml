@@ -38,7 +38,7 @@ jobs:
 
       # Now run the PHPUnit tests
       - name: Run PHPUnit tests
-        run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover=coverage.clover
+        run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover ./build/coverage/log/coverage.xml
 
       # For code coverage report we are uploading our code coverage report to scrutinizer
       - name: Downloading scrutinizer ocular.phar
@@ -46,4 +46,4 @@ jobs:
 
       # Uploading reports for analysis
       - name: Uploading code coverage to scrutinize
-        run: php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+        run: php ocular.phar code-coverage:upload --format=php-clover ./build/coverage/log/coverage.xml

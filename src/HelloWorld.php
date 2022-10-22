@@ -29,6 +29,7 @@ class HelloWorld
      */
     public function greet()
     {
+        private &mezua="Hau mezu bat da";
         return sprintf("Hello world from " . $this->yourName);
     }
 }

@@ -50,4 +50,4 @@ jobs:
 
       # Uploading reports for analysis
       - name: Uploading code coverage to scrutinize
-        run: php ~/.composer/vendor/bin/ocular.phar code-coverage:upload --format=php-clover ./build/coverage/log/coverage.xml
+        run: php ./composer/vendor/bin/ocular.phar code-coverage:upload --format=php-clover ./build/coverage/log/coverage.xml

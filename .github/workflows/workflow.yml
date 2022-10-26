@@ -36,10 +36,6 @@ jobs:
       - name: Install composer dependencies
         run: php composer.phar install
 
-      # ocular instalatzeko
-      - name: Ocular instalatu
-        run: composer global require scrutinizer/ocular
-
       # Now run the PHPUnit tests
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover ./build/coverage/log/coverage.xml
@@ -50,4 +46,4 @@ jobs:
 
       # Uploading reports for analysis
       - name: Uploading code coverage to scrutinize
-        run: php ./composer/vendor/bin/ocular.phar code-coverage:upload --format=php-clover ./build/coverage/log/coverage.xml
+        run: ocular.phar code-coverage:upload --format=php-clover ./build/coverage/log/coverage.xml

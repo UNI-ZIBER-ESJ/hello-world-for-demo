@@ -14,10 +14,6 @@ jobs:
     steps:
       - name: "Checkout latest revision"
         uses: actions/checkout@v2
-        with:
-        # Fetch 10 commits or Scrutinizer will throw ("Failed to retrieve commit parents. If you use a shallow git checkout, please checkout at least a depth of one."), see: RepositoryIntrospector at scrutinizer-ci/ocular GitHub repository
-        # 10 commits is an arbitrary value that is more than 1 commit
-          fetch-depth: 10
 
         # We are using shivammathur/setup-php@v1 public GitHub actions for keeping things easier
         # b2 aldatuta
@@ -44,18 +40,14 @@ jobs:
       # Now run the PHPUnit tests
       - name: Run PHPUnit tests
         # nik run: vendor/bin/phpunit --coverage-clover=coverage.clover
-        run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover ./build/coverage/log/coverage.xml
+        run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover coverage.xml
 
-   
-      # scrutinizer
-      - name: Upload Scrutinizer coverage
-        uses: sudo-bot/action-scrutinizer@latest
-        
+       
       # For code coverage report we are uploading our code coverage report to scrutinizer
-      # - name: Downloading scrutinizer ocular.phar
-      #  run: wget https://scrutinizer-ci.com/ocular.phar
+      - name: Downloading scrutinizer ocular.phar
+        run: wget https://scrutinizer-ci.com/ocular.phar
 
       # Uploading reports for analysis
-      # - name: Uploading code coverage to scrutinize
+      - name: Uploading code coverage to scrutinize
         # nik run: php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-      #  run: php ocular.phar code-coverage:upload --format=php-clover ./build/coverage/log/coverage.xml
+        run: php ocular.phar code-coverage:upload --format=php-clover coverage.xml

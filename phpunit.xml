@@ -15,7 +15,7 @@
              lowUpperBound="35"
              highLowerBound="70"/>
         <log type="coverage-clover"
-             target="coverage.xml"/>
+             target="./build/coverage/log/coverage.xml"/>
     </logging>
     <testsuites>
         <testsuite name="Test">

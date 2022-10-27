@@ -40,18 +40,15 @@ jobs:
       # Now run the PHPUnit tests
       - name: Run PHPUnit tests
         # nik run: vendor/bin/phpunit --coverage-clover=coverage.clover
-        run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover ./build/coverage/log/coverage.xml
+        run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover nire-coverage.xml
 
        
       # For code coverage report we are uploading our code coverage report to scrutinizer
       - name: Downloading scrutinizer ocular.phar
         run: wget https://scrutinizer-ci.com/ocular.phar
         
-      - name: fix code coverage paths
-	      working-directory: ./coverage
-	      run: sed -i 's/\/home\/runner\/work\/<your-repo-name>\/<your-repo-name>\//\/github\/workspace\//g' sonar-cloud-reporter.xml
         
       # Uploading reports for analysis
       - name: Uploading code coverage to scrutinize
         # nik run: php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-        run: php ocular.phar code-coverage:upload --format=php-clover ./build/coverage/log/coverage.xml
+        run: php ocular.phar code-coverage:upload --format=php-clover nire-coverage.xml

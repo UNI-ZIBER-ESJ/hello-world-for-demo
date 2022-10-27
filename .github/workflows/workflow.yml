@@ -40,7 +40,8 @@ jobs:
       # Now run the PHPUnit tests
       - name: Run PHPUnit tests
         # nik run: vendor/bin/phpunit --coverage-clover=coverage.clover
-        run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover ./build/coverage/log/coverage.xml
+        # run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover ./build/coverage/log/coverage.xml
+        run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover=coverage.clover
 
        
       # For code coverage report we are uploading our code coverage report to scrutinizer
@@ -49,9 +50,9 @@ jobs:
         
       # path aldatzen
       - name: Fix code coverage paths
-        run: sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' ./build/coverage/log/coverage.xml 
+        run: sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.clover 
         
       # Uploading reports for analysis
       - name: Uploading code coverage to scrutinize
         # nik run: php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-        run: php ocular.phar code-coverage:upload --format=php-clover ./build/coverage/log/coverage.xml
+        run: php ocular.phar code-coverage:upload --format=php-clover coverage.clover

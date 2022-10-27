@@ -42,7 +42,7 @@ jobs:
         # nik run: vendor/bin/phpunit --coverage-clover=coverage.clover
         run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover ./build/coverage/log/coverage.xml
       - name: echo egiten
-        run: echo ./build/coverage/log/coverage.xml
+        run: echo meinvento.xml
         # run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover coverage.clover
         #run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover=coverage.xml
 

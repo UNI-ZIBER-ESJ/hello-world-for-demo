@@ -1,0 +1,59 @@
+# Name of the workflow
+name: Basic-CI
+
+# When someone will push or make PR to this repository, this workflow will start
+on: [push, pull_request]
+
+jobs:
+  tests:
+
+    # This workflow task will run on Ubuntu machine
+    runs-on: ubuntu-latest
+
+    # Steps that should be performed to check whether tests task was successful or not
+    steps:
+      - name: "Checkout latest revision"
+        uses: actions/checkout@v2
+
+        # We are using shivammathur/setup-php@v1 public GitHub actions for keeping things easier
+        # b2 aldatuta
+      - name: "Install PHP with extensions"
+        uses: shivammathur/setup-php@v2
+        with:
+          # This job will be running on php7.4 version
+          php-version: '7.4'
+
+          # For PHPUnit code coverage, we need xdebug
+          coverage: xdebug
+
+          # If we want to enable any other PHP extension we can add here
+          extensions: xdebug, intl, pdo_mysql, pdo
+
+      # We need to install composer.phar first in the system
+      - name: Install composer
+        run: curl --show-error --silent https://getcomposer.org/installer | php
+
+      # Run composer to install all dependencies
+      - name: Install composer dependencies
+        run: php composer.phar install
+
+      # Now run the PHPUnit tests
+      - name: Run PHPUnit tests
+        run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
+        # nik run: vendor/bin/phpunit --coverage-clover=coverage.clover
+        #run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover ./build/coverage/log/coverage.xml
+        # run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover coverage.clover
+        #run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover=coverage.xml
+
+       
+      # For code coverage report we are uploading our code coverage report to scrutinizer
+      - name: Downloading scrutinizer ocular.phar
+        run: wget https://scrutinizer-ci.com/ocular.phar
+        
+      - name: Fix code coverage paths
+        run: sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
+        
+      # Uploading reports for analysis
+      - name: Uploading code coverage to scrutinize
+        # nik run: php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+        run: php ocular.phar code-coverage:upload --format=php-clover coverage.xml

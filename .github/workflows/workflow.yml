@@ -50,8 +50,8 @@ jobs:
       - name: Downloading scrutinizer ocular.phar
         run: wget https://scrutinizer-ci.com/ocular.phar
         
-      #- name: Fix code coverage paths
-      #  run: sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
+      - name: Fix code coverage paths
+        run: sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
         
       # Uploading reports for analysis
       - name: Uploading code coverage to scrutinize

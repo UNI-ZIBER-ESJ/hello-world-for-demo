@@ -11,7 +11,21 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+        
+        # We are using shivammathur/setup-php@v1 public GitHub actions for keeping things easier
+        # b2 aldatuta
+      - name: "Install PHP with extensions"
+        uses: shivammathur/setup-php@v2
+        with:
+          # This job will be running on php7.4 version
+          php-version: '7.4'
 
+          # For PHPUnit code coverage, we need xdebug
+          coverage: xdebug
+
+          # If we want to enable any other PHP extension we can add here
+          extensions: xdebug, intl, pdo_mysql, pdo
+          
       - name: Install composer and dependencies
         uses: php-actions/composer@v6
 

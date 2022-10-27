@@ -39,7 +39,7 @@ jobs:
 
       # Now run the PHPUnit tests
       - name: Run PHPUnit tests
-        run: vendor/bin/phpunit --coverage-clover=coverage.xml
+        run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
         # nik run: vendor/bin/phpunit --coverage-clover=coverage.clover
         #run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover ./build/coverage/log/coverage.xml
         # run: ./vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover coverage.clover
